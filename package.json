@@ -1,0 +1,24 @@
+{
+  "name": "fflix-backend",
+  "version": "1.0.0",
+  "description": "backend for netflix like app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run" : "tsc && node ./dist/",
+    "tsc" : "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImDiegoDM/backend-fflix.git"
+  },
+  "author": "Diego Matias de OLiveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ImDiegoDM/backend-fflix/issues"
+  },
+  "homepage": "https://github.com/ImDiegoDM/backend-fflix#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
