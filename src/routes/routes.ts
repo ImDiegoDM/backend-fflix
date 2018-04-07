@@ -2,6 +2,7 @@
  Base class for Routes
 */
 import {Controller} from '../controllers/Controller';
+import {middlewares} from '../middlewares/middlewares';
 
 export class Routes{
   group:string;
@@ -10,8 +11,9 @@ export class Routes{
   public mountRoutes(){
   }
 
-  public get(endpoint:string,handler:string){
-    this.server.get(this.group+endpoint,this.getHandler(handler));
+  public get(endpoint:string,handler:string,middleware?:string){
+    if(middleware) this.server.get(this.group+endpoint,middleware[middleware],this.getHandler(handler));
+    else this.server.get(this.group+endpoint,this.getHandler(handler));
   }
 
    /**

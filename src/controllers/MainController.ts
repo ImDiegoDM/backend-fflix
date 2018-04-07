@@ -9,7 +9,7 @@ export class MainController{
     //   list:[],
     //   login:'test'
     // });
-    let user = Users.findOne<IUser>();
+    let user = Users.findOne<IUser>({});
     user.then((data)=>{
       response.send('Hello World! the user name is '+data);
     }).catch((err)=>{

@@ -4,7 +4,7 @@
   "description": "backend for netflix like app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register src/**/*.test.ts || exit 0",
     "start": "tsc && node ./dist/index.js",
     "tsc": "tsc"
   },
@@ -19,8 +19,18 @@
   },
   "homepage": "https://github.com/ImDiegoDM/backend-fflix#readme",
   "dependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^5.0.0",
     "@types/mongoose": "^5.0.9",
     "express": "^4.16.3",
     "mongoose": "^5.0.13"
+  },
+  "devDependencies": {
+    "@types/chai-as-promised": "^7.1.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.0.5",
+    "ts-node": "^5.0.1",
+    "typings": "^2.1.1"
   }
 }

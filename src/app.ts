@@ -1,28 +1,20 @@
 import * as express from 'express';
 import { ApiRoutes } from './routes/api';
-import { connect,connection } from 'mongoose';
+import { DataBase } from  './database';
 
 export class App{
   port:number;
   server:any;
   api:ApiRoutes;
-  database:string='fflix';
+  db:DataBase;
 
   constructor(port:number){
-    this.connectDB();
+    this.db = new DataBase('fflix');
+    this.db.connect();
     this.port = port;
     this.server = express();
     this.api = new ApiRoutes(this.server);
     this.api.mountRoutes();
-  }
-
-  connectDB(){
-    connect('mongodb://localhost/'+this.database);
-    connection;
-    connection.on('error', console.error.bind(console, 'connection error:'));
-    connection.once('open', function() {
-      console.log('yay it works');
-    });
   }
 
   public StartServer(){
