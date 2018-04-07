@@ -3,6 +3,8 @@
 */
 import {Controller} from '../controllers/Controller';
 import {middlewares} from '../middlewares/middlewares';
+import * as multer from 'multer';
+var upload = multer();
 
 export class Routes{
   group:string;
@@ -12,8 +14,13 @@ export class Routes{
   }
 
   public get(endpoint:string,handler:string,middleware?:string){
-    if(middleware) this.server.get(this.group+endpoint,middleware[middleware],this.getHandler(handler));
+    if(middleware) this.server.get(this.group+endpoint,middlewares[middleware],this.getHandler(handler));
     else this.server.get(this.group+endpoint,this.getHandler(handler));
+  }
+
+  public post(endpoint:string,handler:string,middleware?:string){
+    if(middleware) this.server.post(this.group+endpoint,upload.array(),middlewares[middleware],this.getHandler(handler));
+    else this.server.post(this.group+endpoint,upload.array(),this.getHandler(handler));
   }
 
    /**
@@ -24,15 +31,12 @@ export class Routes{
     let splited = handler.split('@');
     let controllerName = splited[0];
     let funcName = splited[1];
-    console.log(this.getControllerIndex(controllerName));
     const  controller = new Controller.Controllers[this.getControllerIndex(controllerName)]();
-    console.log(controller)
     return controller[funcName];
   }
 
   public getControllerIndex(name:string):number{
     for (let i = 0; i < Controller.Controllers.length; i++) {
-      console.log(Controller.Controllers[i].name);
         if(Controller.Controllers[i].name == name){
           return i;
         }

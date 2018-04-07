@@ -4,6 +4,6 @@ import { Session,ISession } from '../database/session';
    if ( request.path == '/') return next();
    let header = request.get('authorization');
    let doc = await Session.findOne<ISession>({token:header});
-   if(doc==null) response.status(401).send('Something broke!');
+   if(doc==null) response.status(401).send({error:'unauthenticated'});
    else next();
  }

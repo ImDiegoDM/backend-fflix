@@ -1,7 +1,7 @@
 import {Schema,model,Document} from 'mongoose';
 import { Table } from './table';
 
-export interface ISession extends Document{
+export interface ISession{
   token:string;
   user:{
     name:string;

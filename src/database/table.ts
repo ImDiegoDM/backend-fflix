@@ -37,4 +37,13 @@ export class Table{
       });
     });
   }
+
+  find<T>(args:any,orderBy?:string):Promise<T>{
+    return new Promise<T>((resolve, reject)=>{
+      this.dbmodel.find(args,(err:any,row:T)=>{
+        if(err) reject(err);
+        resolve(row);
+      }).sort(orderBy);
+    });
+  }
 }
