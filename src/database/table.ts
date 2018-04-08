@@ -12,6 +12,8 @@ export class Table{
   save<T extends Document>(dbData):Promise<T>{
     let data = <T>new this.dbmodel(dbData);
     return new Promise<T>((resolve,reject)=>{
+      let err = data.validateSync();
+      if(err) reject(err);
       data.save().then((doc)=>{
         resolve(doc);
       }).catch((err)=>{

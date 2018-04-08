@@ -12,7 +12,7 @@ export interface ISession{
 }
 
 export const Session=new Table('Sessions',new Schema({
-  token:String,
+  token:{type:String,unique:true},
   user:{
     name:String,
     login:String,

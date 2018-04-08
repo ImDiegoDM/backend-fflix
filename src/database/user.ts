@@ -10,9 +10,9 @@ export interface IUser{
 }
 
 export const Users=new Table('Users',new Schema({
-  name:String,
-  login:String,
-  password:String,
-  email:String,
+  name:{type:String,required:true},
+  login:{type:String,required:true,unique: true},
+  password:{type:String,required:true},
+  email:{type:String,required:true,unique: true},
   list:[{film:String}]
 }));

@@ -1,7 +1,7 @@
-import { MainController } from './MainController';
-import { SecondController } from './SecondController';
 import { MovieController} from './movieController';
+import { UserController } from './userController';
+import { SessionController } from './sessionController';
 
 export namespace Controller{
-  export const Controllers=[MainController,SecondController,MovieController];
+  export const Controllers=[MovieController,UserController,SessionController];
 }
