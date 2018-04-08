@@ -16,10 +16,11 @@ describe('Session Controller test',()=>{
   let salt = bcrypt.genSaltSync(15);
 
   let sendedObjs;
+  let statusObj;
   let response={
     send:(res)=>{sendedObjs = res},
     json:(res)=>{sendedObjs = res},
-    status:()=>{return {send:(res)=>{sendedObjs = res}}}
+    status:(sta)=>{statusObj = sta ;return {send:(res)=>{sendedObjs = res}}}
   }
 
   before(function(){
@@ -56,7 +57,14 @@ describe('Session Controller test',()=>{
     expect(session).to.not.be.null;
   }).timeout(10000);
 
-  it('Should genera token correcty',()=>{
+  it('Should return status 401 when credential are incorect ',async()=>{
+    await sessionController.create({body:{login:'dfsd',password:'123456789'}},response);
+    let session = await Session.findOne({token:sendedObjs.token});
+    expect(sendedObjs).to.be.a('string');
+    expect(statusObj).to.equal(401);
+  }).timeout(10000);
+
+  it('Should generate token correcty',()=>{
     let token = sessionController.generateToken(50);
     expect(token).to.be.length(50);
   });

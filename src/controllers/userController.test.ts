@@ -1,6 +1,6 @@
 import { UserController } from './userController'
-import { use,should,expect } from 'chai';
 import { Users,IUser } from '../database/user';
+import { use,should,expect } from 'chai';
 import { DataBase } from '../database';
 import * as chaiPromised from 'chai-as-promised';
 import { SessionController } from './sessionController';
@@ -10,10 +10,11 @@ describe('User Controller',()=>{
   let userController:UserController;
 
   let sendedObjs;
+  let statusObj;
   let response:any={
     send:(res)=>{sendedObjs = res},
     json:(res)=>{sendedObjs = res},
-    status:()=>{return {send:(res)=>{sendedObjs = res}}}
+    status:(sta)=>{statusObj = sta ;return {send:(res)=>{sendedObjs = res}}}
   }
 
   before(function(){
@@ -35,6 +36,12 @@ describe('User Controller',()=>{
     let user = await Users.findOne<IUser>({name:'Test Test'});
     expect(user).to.not.be.null;
     expect(user.password).to.not.equal('123456');
+  }).timeout(10000);
+
+  it('Should return 401 when is missing some params correctly',async ()=>{
+    await userController.register({body:{login:'test'}},response);
+    expect(sendedObjs).to.be.a('string');
+    expect(statusObj).to.equal(400);
   }).timeout(10000);
 
   it('Should return the user',async()=>{

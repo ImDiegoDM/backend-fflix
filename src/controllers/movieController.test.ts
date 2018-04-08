@@ -16,6 +16,7 @@ describe('Movie Controller test',()=>{
   }
 
   before(function(){
+    this.timeout(5000);
     return new Promise<any>((resolve,reject)=>{
       use(chaiPromised);
       should();
@@ -29,7 +30,8 @@ describe('Movie Controller test',()=>{
     })
   });
 
-  before(async ()=>{
+  before(async function(){
+    this.timeout(5000);
     let movie1 = {
       categories:["Ação","Aventura","Sci-Fi"],
       name:"Ready Player One",
@@ -82,7 +84,8 @@ describe('Movie Controller test',()=>{
     expect(movie).to.have.property('name','Tomb Raider');
   });
 
-  after(async ()=>{
+  after(async function(){
+    this.timeout(5000);
     await Movie.remove({});
     db.disconect();
   });

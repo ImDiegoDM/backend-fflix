@@ -23,13 +23,12 @@ export class SessionController{
       }while(!findUniqueToken)
       response.send(sessionObj);
     }else{
-      console.log('user not finded')
       response.status(401).send('Ops! yours credentials are incorect');
     }
   }
 
   public generateToken(length:number):string{
-    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%¨&*(=+-/.,|';
+    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$';
     let string = '';
     for (let i = 0; i < length; i++) {
         string+=chars[Math.round(Math.random()*chars.length)];

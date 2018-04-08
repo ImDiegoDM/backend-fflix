@@ -12,7 +12,7 @@ export class UserController{
     let email = await Users.find({email:body.email});
 
     if(!body.password){
-      response.send('password is missing');
+      response.status(400).send('password is missing');
       return;
     }
 
@@ -29,7 +29,7 @@ export class UserController{
       userObj = await Users.save(user);
       response.json(userObj);
     }catch(err){
-      response.send(err);
+      response.status(400).send(err);
     }
   }
 
@@ -43,7 +43,6 @@ export class UserController{
           resolve(null);
         }
       }catch(err){
-        console.log(err.message)
         resolve(null);
       }
     });
