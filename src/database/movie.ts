@@ -1,7 +1,7 @@
 import {Schema,model,Document} from 'mongoose';
 import { Table } from './table';
 
-export interface IMovie{
+export interface IMovie extends Document{
   categories:string[];
   name:string;
   trailer:string;

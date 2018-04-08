@@ -3,7 +3,7 @@
  import * as chaiPromised from 'chai-as-promised';
  import { DataBase } from '../database';
  import { Table } from './table';
- import { Schema,connection } from 'mongoose';
+ import { Schema } from 'mongoose';
 
 describe('Table tests',()=>{
   let db:DataBase;

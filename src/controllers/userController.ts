@@ -16,7 +16,7 @@ export class UserController{
       return;
     }
 
-    let user:IUser ={
+    let user ={
       name:body.name,
       login:body.login,
       password:bcrypt.hashSync(body.password, this.salt),

@@ -11,7 +11,7 @@ export class SessionController{
       let findUniqueToken=true;
       let sessionObj;
       do{
-        let session:ISession = {
+        let session = {
           token:this.generateToken(500),
           user:authenticated
         }
@@ -23,6 +23,7 @@ export class SessionController{
       }while(!findUniqueToken)
       response.send(sessionObj);
     }else{
+      console.log('user not finded')
       response.status(401).send('Ops! yours credentials are incorect');
     }
   }
@@ -30,7 +31,6 @@ export class SessionController{
   public generateToken(length:number):string{
     let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%¨&*(=+-/.,|';
     let string = '';
-    console.log(Math.random()*chars.length);
     for (let i = 0; i < length; i++) {
         string+=chars[Math.round(Math.random()*chars.length)];
     }
