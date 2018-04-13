@@ -4,10 +4,20 @@
 import {Controller} from '../controllers/Controller';
 import {middlewares} from '../middlewares/middlewares';
 import * as multer from 'multer';
-var upload = multer();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({storage: storage})
 
 export class Routes{
   group:string;
+  cpUpload = upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'sample', maxCount: 1 }]);
+
   constructor(protected server:any){}
 
   public mountRoutes(){
@@ -19,8 +29,12 @@ export class Routes{
   }
 
   public post(endpoint:string,handler:string,middleware?:string){
-    if(middleware) this.server.post(this.group+endpoint,upload.array(),middlewares[middleware],this.getHandler(handler));
-    else this.server.post(this.group+endpoint,upload.array(),this.getHandler(handler));
+    if(middleware) this.server.post(this.group+endpoint,this.cpUpload,middlewares[middleware],this.getHandler(handler));
+    else this.server.post(this.group+endpoint,this.cpUpload,this.getHandler(handler));
+  }
+
+  public postFile(){
+
   }
 
    /**

@@ -37,13 +37,24 @@ export class UserController{
     return new Promise<IUser>(async (resolve,reject)=>{
       try{
         let user = await Users.findOne<IUser>({login:login});
+        // console.log(user);
         if(bcrypt.compareSync(password, user.password)){
           resolve(user);
         }else{
           resolve(null);
         }
       }catch(err){
-        resolve(null);
+        try{
+          let user = await Users.findOne<IUser>({email:login});
+          // console.log(user);
+          if(bcrypt.compareSync(password, user.password)){
+            resolve(user);
+          }else{
+            resolve(null);
+          }
+        }catch(err){
+          resolve(null);
+        }
       }
     });
   }
@@ -52,7 +63,8 @@ export class UserController{
     let token = request.get('authorization');
     try{
       let session = await Session.findOne<ISession>({token:token});
-      response.json(session.user);
+      let user = await Users.findOne<IUser>({_id:(<any>session.user)._id});
+      response.json(user);
     }catch{
       response.status(400).send('token not find');
     }

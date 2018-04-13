@@ -31,6 +31,15 @@ export class Table{
     })
   }
 
+  update(args,argsUpdate):Promise<any>{
+    return new Promise<any>((resolve,reject)=>{
+      this.dbmodel.update(args,argsUpdate,(err)=>{
+        if(err) reject(err);
+        else resolve();
+      })
+    });
+  }
+
   findOne<T>(args:any):Promise<T>{
     return new Promise<T>((resolve, reject) =>{
       this.dbmodel.findOne(args, (err: any, row:T) => {

@@ -4,24 +4,29 @@ import { Session,ISession } from '../database/session';
 export class SessionController{
 
   public create = async (request:any,response:any)=>{
-    let body = request.body;
+    let body = Object.assign({}, request.body);
+    // console.log(body);
     let authenticated = await UserController.authenticate(body.login,body.password);
+    console.log(authenticated);
     if(authenticated){
-
-      let findUniqueToken=true;
-      let sessionObj;
-      do{
-        let session = {
-          token:this.generateToken(500),
-          user:authenticated
-        }
-        try{
-          sessionObj = await Session.save(session);
-        }catch{
-          findUniqueToken = false;
-        }
-      }while(!findUniqueToken)
-      response.send(sessionObj);
+      try{
+        let findUniqueToken=true;
+        let sessionObj;
+        do{
+          let session = {
+            token:this.generateToken(500),
+            user:authenticated
+          }
+          try{
+            sessionObj = await Session.save(session);
+          }catch(err){
+            findUniqueToken = false;
+          }
+        }while(!findUniqueToken)
+        response.send(sessionObj);
+      }catch(err){
+        response.status(500).send(err);
+      }
     }else{
       response.status(401).send('Ops! yours credentials are incorect');
     }

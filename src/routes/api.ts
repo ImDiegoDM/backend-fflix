@@ -7,10 +7,12 @@ export class ApiRoutes extends Routes{
     this.get('/movies','MovieController@index','auth');
     this.get('/movies/:categorie','MovieController@indexByCategorie','auth');
     this.post('/movie','MovieController@save','auth');
+    this.post('/movie/:movieId/add','MovieController@addList','auth');
 
     this.get('/user','UserController@getUser','auth');
 
     this.post('/user','UserController@register');
+
 
     this.post('/login','SessionController@create');
   }

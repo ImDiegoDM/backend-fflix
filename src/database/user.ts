@@ -6,7 +6,7 @@ export interface IUser extends Document{
   login:string;
   password:string;
   email:string;
-  list:{film:string}[];
+  list:any[];
 }
 
 export const Users=new Table('Users',new Schema({
@@ -14,5 +14,11 @@ export const Users=new Table('Users',new Schema({
   login:{type:String,required:true,unique: true},
   password:{type:String,required:true},
   email:{type:String,required:true,unique: true},
-  list:[{film:String}]
+  list:[{_id:String,categories:[String],
+  name:String,
+  trailer:String,
+  evaluation:Number,
+  cast:[String],
+  coverImage:String,
+  sampleImage:String}]
 }));

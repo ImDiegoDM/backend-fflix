@@ -7,6 +7,8 @@ export interface IMovie extends Document{
   trailer:string;
   evaluation:number;
   cast:string[];
+  coverImage:string;
+  sampleImage:string;
 }
 
 export const Movie=new Table('Movies',new Schema({
@@ -15,4 +17,6 @@ export const Movie=new Table('Movies',new Schema({
   trailer:String,
   evaluation:Number,
   cast:[String],
+  coverImage:String,
+  sampleImage:String
 }));
